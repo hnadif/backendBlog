@@ -4,15 +4,17 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blog.demo.dao.Post;
+import com.blog.demo.dao.PostComment;
 import com.blog.demo.dao.PostRepository;
 
-@RestController
+//@RestController
 @CrossOrigin("*")
 public class CommentApi {
 
@@ -22,6 +24,13 @@ public class CommentApi {
 	@RequestMapping(value = "/posts",method = RequestMethod.GET)
 	public List<Post> getComments(){
 		return postRepository.findAll();
+	}
+	
+	
+	@RequestMapping(value = "/post/{id}/postComments", method = RequestMethod.GET)
+	public List<PostComment> postsUserById(@PathVariable Long id) {
+	 
+		return postRepository.getOne(id).getComments();
 	}
 	
 	

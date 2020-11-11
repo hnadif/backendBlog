@@ -15,7 +15,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
+//@JsonIgnoreProperties(value = {"comments","hibernateLazyInitializer", "handler"})
 public class Post implements Serializable{
 
 	@Id
@@ -32,7 +35,7 @@ public class Post implements Serializable{
 	private User user;
 
 	@OneToMany(mappedBy = "post", fetch = FetchType.LAZY, orphanRemoval = true)
-	private List<PostComment> comments = new ArrayList<PostComment>();
+	private List<PostComment> postComments = new ArrayList<PostComment>();
 
 	public Post() {
 		super();
@@ -41,13 +44,13 @@ public class Post implements Serializable{
 	
 	   //Add postComment
 		public void addPostComment(PostComment postComment) {
-			this.comments.add(postComment);
+			this.postComments.add(postComment);
 			postComment.setPost(this);
 		}
 		
 		//Remove postComment
 		public void removePostComment(PostComment postComment) {
-			this.comments.remove(postComment);
+			this.postComments.remove(postComment);
 			postComment.setPost(null);
 		}
 
@@ -109,11 +112,11 @@ public class Post implements Serializable{
 	}
 
 	public List<PostComment> getComments() {
-		return comments;
+		return postComments;
 	}
 
 	public void setComments(List<PostComment> comments) {
-		this.comments = comments;
+		this.postComments = comments;
 	}
 
 	@Override

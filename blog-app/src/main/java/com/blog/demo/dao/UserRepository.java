@@ -1,9 +1,9 @@
 package com.blog.demo.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
-@Repository
-public interface UserRepository extends JpaRepository<User, Long>{
+@RepositoryRestResource
+public interface UserRepository extends JpaRepository<User, Long>{ 
 
 }
